@@ -3,7 +3,15 @@
 const canvas = document.getElementById('canvas')
 const ctx = canvas.getContext('2d')
 
-let size = 20
+// Other constant variables
+
+const increaseBtn = document.getElementById('increase')
+const decreaseBtn = document.getElementById('decrease')
+const sizeElement = document.getElementById('size')
+const colorElement = document.getElementById('color')
+const clearElement = document.getElementById('clear')
+
+let size = 10
 let isPressed = false
 let color = 'black'
 let x
@@ -42,6 +50,37 @@ canvas.addEventListener('mousemove', (e) => {
     }
 })
 
+// Toolbox Controls
+
+colorElement.addEventListener('change', (e) => {
+    color = e.target.value
+})
+
+increaseBtn.addEventListener('click', () => {
+    size += 5
+
+    if (size > 50) {
+        size = 50
+    }
+
+    updateSize()
+})
+
+decreaseBtn.addEventListener('click', () => {
+    size -= 5
+
+    if (size < 5) {
+        size = 5
+    }
+
+    updateSize()
+})
+
+clearElement.addEventListener('click', () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+})
+
+
 // Functionality to Draw Shapes
 
 function drawCircle(x, y) {
@@ -60,4 +99,6 @@ function drawLine(x1, y1, x2, y2) {
     ctx.stroke()
 }
 
-
+function updateSize() {
+    sizeElement.innerText = size
+}
